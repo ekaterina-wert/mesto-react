@@ -1,0 +1,20 @@
+.places__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 282px);
+    grid-template-rows: repeat(auto-fit, 360px);
+    column-gap: 17px;
+    row-gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 51px 0 0;
+    list-style: none;
+    grid-auto-columns: 282px;
+    grid-auto-rows: 360px;
+}
+
+@media screen and (max-width: 580px) {
+    .places__container {
+        padding: 0;
+    }
+}

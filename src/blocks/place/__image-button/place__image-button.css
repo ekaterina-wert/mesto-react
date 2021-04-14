@@ -1,0 +1,10 @@
+.place__image-button {
+    margin: 0 auto;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+    border: none;
+    cursor: pointer;
+    display: block;
+    border-radius: 10px 10px 0 0;
+}
