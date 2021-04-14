@@ -1,0 +1,14 @@
+.profile__container {
+    display: grid;
+    grid-template-areas: "image name-container" "image status";
+    align-items: center;
+    grid-template-columns: auto minmax(min-content, max-content);
+}
+
+@media screen and (max-width: 880px) {
+    .profile__container {
+        grid-template-areas: "image" "name-container" "status";
+        grid-template-columns: minmax(min-content, max-content);
+        justify-items: center;
+    }
+}

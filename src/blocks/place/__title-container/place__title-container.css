@@ -1,0 +1,15 @@
+.place__title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 21px 22px;
+    background: #FFFFFF;
+    border-radius: 0 0 10px 10px;
+}
+
+@media screen and (max-width: 580px) {
+    .places__container {
+        padding: 0;
+    }
+}

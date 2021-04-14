@@ -1,0 +1,7 @@
+.popup_type_show-image {
+    /* flex-direction: row; */
+}
+
+.popup_type_show-image::before {
+    opacity: .9;
+}
