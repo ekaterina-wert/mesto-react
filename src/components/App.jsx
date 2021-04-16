@@ -1,5 +1,5 @@
+import { ESC } from '../utils/constants.js';
 import React from 'react';
-import { api } from '../utils/Api.js';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 import Main from './Main.jsx';
@@ -7,79 +7,68 @@ import PopupWithForm from './PopupWithForm.jsx';
 import ImagePopup from './ImagePopup.jsx';
 
 function App() {
-    //стейт-переменные для данных с сервера
-    const [userInfo, setUserInfo] = React.useState('');
-    const [cards, setCards] = React.useState([]);
-
     //стейт-переменные для открытия и закрытия попапов
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
     const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = React.useState(false);
+    
+    //стейт-переменные для обновления данных карточки и пользователя
     const [selectedCard, setSelectedCard] = React.useState(null);
+    const [userData, setUserData] = React.useState({});
 
     //функции открытия попапов
-    function handleEditProfileClick() {
+    function handleEditProfileClick(data) {
         setIsEditProfilePopupOpen(true);
+        setUserData({ ...data });
+        document.addEventListener("keydown", handleEscClose);
     }
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true);
+        document.addEventListener("keydown", handleEscClose);
     }
 
     function handleAddPlaceClick() {
         setIsAddPlacePopupOpen(true);
+        document.addEventListener("keydown", handleEscClose);
     }
 
     function handleCardClick(card) {
         setSelectedCard(card);
+        document.addEventListener("keydown", handleEscClose);
     }
 
     function handleDeleteCard() {
         setIsConfirmationPopupOpen(true);
+        document.addEventListener("keydown", handleEscClose);
     }
 
-    //функция закрытия попапов
+    //функции закрытия попапов
+    function handleEscClose(evt) {
+        if (evt.key === ESC) {
+            closeAllPopups();
+        }
+    }
+
     function closeAllPopups() {
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
         setIsEditAvatarPopupOpen(false);
         setIsConfirmationPopupOpen(false);
         setSelectedCard(null);
+        setUserData({});
+        document.removeEventListener("keydown", handleEscClose);
     }
-
-    //получение данных с сервера
-    React.useEffect(() => {
-        api.getAllData()
-            .then((argument) => {
-                const [userData, cardsData] = argument;
-
-                //выгрузка данных пользователя
-                setUserInfo(userData);
-
-                //выгрузка данных карточек
-                const data = cardsData.map((item) => ({
-                    id: item._id,
-                    name: item.name,
-                    link: item.link,
-                    likes: item.likes,
-                    owner: item.owner
-                }));
-                setCards(data);
-            })
-            .catch((err) => {
-                console.log('Ошибка при загрузке юзердата и массива карточек', err)
-            });
-    }, [])
 
     return (
         <>
             < Header />
-            <Main userData={userInfo} cards={cards} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} onDelete={handleDeleteCard} />
+            <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} onDelete={handleDeleteCard} />
             <PopupWithForm name='edit-form' title='Редактировать профиль' onClose={closeAllPopups} submit='Сохранить' isOpen={isEditProfilePopupOpen}>
-                <input type="text" className="popup__text popup__text_type_name" id="name-input" name="userName" value={userInfo.name} minLength="2" maxLength="40" required></input>
+                <input type="text" className="popup__text popup__text_type_name" id="name-input" name="userName" value={userData.name} minLength="2" maxLength="40" required></input>
                 <span className="popup__input-error name-input-error">Вы пропустили это поле.</span>
-                <input type="text" className="popup__text popup__text_type_job" id="status-input" name="userStatus" value={userInfo.about} minLength="2" maxLength="200" required />
+                <input type="text" className="popup__text popup__text_type_job" id="status-input" name="userStatus" value={userData.about} minLength="2" maxLength="200" required />
                 <span className="popup__input-error status-input-error">Вы пропустили это поле.</span>
             </PopupWithForm>
 

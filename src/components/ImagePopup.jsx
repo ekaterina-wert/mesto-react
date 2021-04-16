@@ -1,21 +1,6 @@
-import { ESC } from '../utils/constants.js';
 import React from 'react';
 
 function ImagePopup(props) {
-
-    React.useEffect(() => {
-        function handleEscClose(evt) {
-            if (evt.key === ESC) {
-                props.onClose();
-            }
-        }
-
-        document.addEventListener("keydown", handleEscClose);
-
-        return () => {
-            document.removeEventListener("keydown", handleEscClose);
-        };
-    });
 
     return (
         <div className={`popup popup_type_show-image ${props.card && 'popup_opened'}`}>

@@ -1,21 +1,6 @@
-import { ESC } from '../utils/constants.js';
 import React from 'react';
 
 function PopupWithForm(props) {
-
-    React.useEffect(() => {
-        function handleEscClose(evt) {
-            if (evt.key === ESC) {
-                props.onClose();
-            }
-        }
-
-        document.addEventListener("keydown", handleEscClose);
-
-        return () => {
-            document.removeEventListener("keydown", handleEscClose);
-        };
-    });
 
     return (
         <>
