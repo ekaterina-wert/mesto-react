@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App.js';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(( 
-    <>
+    <StrictMode>
             <App/>
-    </>
+    </StrictMode>
     ), document.getElementById('root')
 );
 
