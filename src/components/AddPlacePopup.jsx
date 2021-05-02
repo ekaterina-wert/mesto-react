@@ -1,19 +1,17 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm.jsx';
-//import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 
 function AddPlacePopup(props) {
-//    const currentUser = React.useContext(CurrentUserContext);
 
     const [name, setName] = React.useState('');
     const [link, setLink] = React.useState('');
 
+    // Реализация очистки полей формы при открытии
     React.useEffect(() => {
         setName('');
         setLink('');
         }, [props.isOpen]
     );
-
     
     function handleChangeName(e) {
         setName(e.target.value);
@@ -31,7 +29,6 @@ function AddPlacePopup(props) {
         props.onAddPlace({name, link});
     } 
     
-
     return (
         <PopupWithForm name='add-card' title='Новое место' onClose={props.onClose} submit='Создать' isOpen={props.isOpen} onSubmit={handleSubmit} >
             <input type="text" className="popup__text popup__text_type_place" id="place-input" name="name" placeholder="Название" value={name} onChange={handleChangeName} minLength="2" maxLength="30" required />

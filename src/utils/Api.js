@@ -103,9 +103,9 @@ class Api {
         }
     }
 
-    getAllData() {
-        return Promise.all([this.getUserData(), this.getInitialCards()])
-    }
+    // getAllData() {
+    //     return Promise.all([this.getUserData(), this.getInitialCards()])
+    // }
 }
 
 export const api = new Api({

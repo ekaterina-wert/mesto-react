@@ -1,5 +1,5 @@
 import React from 'react';
-import {CurrentUserContext} from '../contexts/CurrentUserContext.js'
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 
 function Card(props) {
     
@@ -17,19 +17,20 @@ function Card(props) {
     // Создаём переменную, которую после зададим в `className` для кнопки лайка
     const cardLikeButtonClassName = isLiked? 'place__like-button place__like-button_active' : 'place__like-button'; 
 
-
+    // Передаем id карточки в App через Main
     function handleClick() {
         props.onCardClick(props);
     }
 
+    // Передаем id карточки в App через Main
    function handleLikeClick() {
         props.onCardLike(props);
     }
 
+    // Передаем id карточки в App через Main
     function handleDeleteClick() {
         props.onCardDelete(props);
     }
-
     
     return (
         <li className="place">
