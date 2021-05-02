@@ -18,6 +18,7 @@
 @import "./blocks/place/__image-button/place__image-button.css";
 @import "./blocks/place/__image/place__image.css";
 @import "./blocks/place/__trash-button/place__trash-button.css";
+@import "./blocks/place/__trash-button/_hidden/place__trash-button_hidden.css";
 @import "./blocks/place/__title-container/place__title-container.css";
 @import "./blocks/place/__title/place__title.css";
 @import "./blocks/place/__like-container/place__like-container.css";

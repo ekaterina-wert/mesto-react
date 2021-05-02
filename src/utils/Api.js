@@ -56,49 +56,56 @@ class Api {
                 method: 'PATCH',
                 headers: this._headers,
                 body: JSON.stringify({
-                    name: data.name.value,
-                    about: data.about.value
+                    name: data.name,
+                    about: data.about
                 })
             })
             .then(res => this._checkApiRespond(res))
     }
 
     //изменить аватар (PATCH)
-    editUserAvatar(pic) {
+    editUserAvatar(url) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
                 method: 'PATCH',
                 headers: this._headers,
                 body: JSON.stringify({
-                    avatar: pic.value,
+                    avatar: url,
                 })
             })
             .then(res => this._checkApiRespond(res))
     }
 
-
     //поставить лайк карточке (PUT)
-    // likeCard(cardId) {
-    //     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-    //             method: 'PUT',
-    //             headers: this._headers,
-    //             body: card.likes
-    //         })
-    //         .then(res => this._checkApiRespond(res))
-    // }
-
-    // //убрать лайк карточки (DELETE)
-    // unlikeCard(cardId) {
-    //     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-    //             method: 'DELETE',
-    //             headers: this._headers,
-    //             //body: card.likes
-    //         })
-    //         .then(res => this._checkApiRespond(res))
-    // }
-
-    getAllData() {
-        return Promise.all([this.getUserData(), this.getInitialCards()])
+    likeCard(cardId) {
+        return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+                method: 'PUT',
+                headers: this._headers,
+                //body: card.likes
+            })
+            .then(res => this._checkApiRespond(res))
     }
+
+    //убрать лайк карточки (DELETE)
+    unlikeCard(cardId) {
+        return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+                method: 'DELETE',
+                headers: this._headers,
+                //body: card.likes
+            })
+            .then(res => this._checkApiRespond(res))
+    }
+
+    changeLikeCardStatus(cardId, isLiked) {
+        if (isLiked) {
+            return this.unlikeCard(cardId)
+        } else {
+            return this.likeCard(cardId);
+        }
+    }
+
+    // getAllData() {
+    //     return Promise.all([this.getUserData(), this.getInitialCards()])
+    // }
 }
 
 export const api = new Api({
