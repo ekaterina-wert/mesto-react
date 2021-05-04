@@ -27,7 +27,6 @@ function App() {
     React.useEffect(() => {
         api.getUserData()
             .then((userData) => {
-                //выгрузка данных пользователя
                 setCurrentUser(userData);
             })
             .catch((err) => {
@@ -39,15 +38,7 @@ function App() {
     React.useEffect(() => {
         api.getInitialCards()
             .then((initialCards) => {
-                //выгрузка данных карточек
-                const data = initialCards.map((item) => ({
-                    _id: item._id,
-                    name: item.name,
-                    link: item.link,
-                    likes: item.likes,
-                    owner: item.owner
-                }));
-                setCards(data);
+                setCards(initialCards);
             })
             .catch((err) => {
                 console.log('Ошибка при загрузке массива карточек', err)
@@ -61,7 +52,7 @@ function App() {
         // Отправляем запрос в API и получаем обновлённые данные карточки
         api.changeLikeCardStatus(card._id, isLiked)
             .then((newCard) => {
-                setCards(() => cards.map((c) =>
+                setCards((cards) => cards.map((c) =>
                     c._id === card._id ? newCard : c
                 ))
             })
@@ -70,16 +61,16 @@ function App() {
     function handleCardDelete(card) {
         api.deleteMyCard(card._id)
             .then(() => {
-                setCards(() =>
+                setCards((cards) =>
                     cards.filter((c) =>
                         c._id !== card._id
                     )
                 )
+                closeAllPopups();
             })
             .catch((err) => {
                 console.log('Ошибка при удалении карточки', err)
-            });
-        closeAllPopups();
+            });     
     }
 
     //функции открытия попапов
@@ -112,13 +103,13 @@ function App() {
     // Функции обновления данных пользователя (информация о себе и аватар)
     function handleUpdateUser(userInputs) {
         api.editUserData(userInputs)
-            .then(() => {
-                setCurrentUser({...currentUser, name: userInputs.name, about: userInputs.about });
+            .then((userData) => {
+                setCurrentUser(userData);
+                closeAllPopups();
             })
             .catch((err) => {
                 console.log('Ошибка при обновлении юзердата', err)
             });
-        closeAllPopups();
     }
 
     function handleUpdateAvatar(userInput) {
@@ -161,43 +152,32 @@ function App() {
     }
 
     return ( 
-    <>
-        <CurrentUserContext.Provider value = { currentUser }>
+    <CurrentUserContext.Provider value={currentUser}>
         <Header/>
-        <Main cards = { cards }
-            onEditProfile = { handleEditProfileClick }
-            onAddPlace = { handleAddPlaceClick }
-            onEditAvatar = { handleEditAvatarClick }
-            onCardClick = { handleCardClick }
-            onCardLike = { handleCardLike }
-            onCardDelete = { handleCardDelete }
+        <Main 
+            cards={cards}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
             //кнопка для подтверждения удаления карточки
             //onDelete={handleDeleteCard} 
         /> 
-        <EditProfilePopup isOpen = { isEditProfilePopupOpen }
-            onClose = { closeAllPopups }
-            onUpdateUser = { handleUpdateUser }
-        />  
-        <EditAvatarPopup isOpen = { isEditAvatarPopupOpen }
-            onClose = { closeAllPopups }
-            onUpdateAvatar = { handleUpdateAvatar }
-        />  
-        <AddPlacePopup isOpen = { isAddPlacePopupOpen }
-            onClose = { closeAllPopups }
-            onAddPlace = { handleAddPlaceSubmit }
-        />  
-        <PopupWithForm name = 'confirm'
-            title = 'Вы уверены?'
-            onClose = { closeAllPopups }
-            submit = 'Да'
-            isOpen = { isConfirmationPopupOpen }
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />  
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />  
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />  
+        <PopupWithForm 
+            name='confirm'
+            title='Вы уверены?'
+            onClose={closeAllPopups}
+            submit='Да'
+            isOpen={isConfirmationPopupOpen}
         /> 
-        <ImagePopup card = { selectedCard }
-            onClose = { closeAllPopups }
-        /> 
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} /> 
         <Footer />
-        </CurrentUserContext.Provider> 
-    </>
+    </CurrentUserContext.Provider> 
     )
 };
 
