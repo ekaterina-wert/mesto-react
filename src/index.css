@@ -15,7 +15,6 @@
 @import "./blocks/profile/__add-button/profile__add-button.css";
 @import "./blocks/places/__container/places__container.css";
 @import "./blocks/place/place.css";
-@import "./blocks/place/__image-button/place__image-button.css";
 @import "./blocks/place/__image/place__image.css";
 @import "./blocks/place/__trash-button/place__trash-button.css";
 @import "./blocks/place/__trash-button/_hidden/place__trash-button_hidden.css";

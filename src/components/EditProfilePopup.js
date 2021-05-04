@@ -31,32 +31,38 @@ function EditProfilePopup(props) {
     }
 
     return ( 
-        <PopupWithForm name = 'edit-form'
-            title = 'Редактировать профиль'
-            onClose = { props.onClose }
-            submit = 'Сохранить'
-            isOpen = { props.isOpen }
-            onSubmit = { handleSubmit }>
-            <input type = "text"
-                className = "popup__text popup__text_type_name"
-                id = "name-input"
-                name = "userName"
-                value = { name }
-                minLength = "2"
-                maxLength = "40"
-                onChange = { handleChangeName }
-                required/> 
-            <span className = "popup__input-error name-input-error">Вы пропустили это поле.</span> 
-            <input type = "text"
-                className = "popup__text popup__text_type_job"
-                id = "status-input"
-                name = "userStatus"
-                value = { description }
-                minLength = "2"
-                maxLength = "200"
-                onChange = { handleChangeDescription }
-                required/>
-            <span className = "popup__input-error status-input-error">Вы пропустили это поле.</span> 
+        <PopupWithForm 
+            name='edit-form'
+            title='Редактировать профиль'
+            onClose={props.onClose}
+            submit='Сохранить'
+            isOpen={props.isOpen}
+            onSubmit={handleSubmit}
+        >
+            <input 
+                type="text"
+                className="popup__text popup__text_type_name"
+                id="name-input"
+                name="userName"
+                value={name}
+                minLength="2"
+                maxLength="40"
+                onChange={handleChangeName}
+                required
+            /> 
+            <span className="popup__input-error name-input-error">Вы пропустили это поле.</span> 
+            <input 
+                type="text"
+                className="popup__text popup__text_type_job"
+                id="status-input"
+                name="userStatus"
+                value={description}
+                minLength="2"
+                maxLength="200"
+                onChange={handleChangeDescription}
+                required
+            />
+            <span className="popup__input-error status-input-error">Вы пропустили это поле.</span> 
         </PopupWithForm>
     )
 };

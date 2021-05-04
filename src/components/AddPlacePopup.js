@@ -29,15 +29,38 @@ function AddPlacePopup(props) {
     }
 
     return ( 
-        <PopupWithForm name = 'add-card' title = 'Новое место'
-            onClose = { props.onClose } submit = 'Создать' isOpen = { props.isOpen } onSubmit = { handleSubmit }>
-            <input type = "text" className = "popup__text popup__text_type_place" id = "place-input" name = "name" placeholder = "Название"
-                value = { name } onChange = { handleChangeName }
-                minLength = "2" maxLength = "30" required />
-            <span className = "popup__input-error place-input-error">Вы пропустили это поле.</span> 
-            <input type = "url" className = "popup__text popup__text_type_place-url" id = "url-input" name = "link" placeholder = "Ссылка на картинку"
-                value = { link } onChange = { handleChangeLink } required />
-            <span className = "popup__input-error url-input-error">Введите адрес сайта.</span> 
+        <PopupWithForm 
+            name='add-card' 
+            title='Новое место' 
+            onClose ={props.onClose} 
+            submit='Создать' 
+            isOpen={props.isOpen} 
+            onSubmit={handleSubmit}
+        >
+            <input 
+                type="text" 
+                className="popup__text popup__text_type_place" 
+                id="place-input" 
+                name="name" 
+                placeholder="Название"
+                value={name} 
+                onChange={handleChangeName}
+                minLength="2" 
+                maxLength="30" 
+                required 
+            />
+            <span className="popup__input-error place-input-error">Вы пропустили это поле.</span> 
+            <input 
+                type="url" 
+                className="popup__text popup__text_type_place-url" 
+                id="url-input" 
+                name="link" 
+                placeholder="Ссылка на картинку"
+                value={link} 
+                onChange={handleChangeLink}
+                required 
+            />
+            <span className="popup__input-error url-input-error">Введите адрес сайта.</span> 
         </PopupWithForm>
     )
 };
